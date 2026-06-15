@@ -1,0 +1,43 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+.card-image { position: relative; height: 200px; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; }
+.badge {
+  position: absolute; top: 12px; left: 12px;
+  background: #16213e; color: white;
+  padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;
+}
+.badge.sale { background: #e94560; }
+
+.card-body { padding: 1rem; }
+.type-tag { font-size: 0.75rem; color: #e94560; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.card-body h3 { margin: 0.3rem 0; font-size: 1rem; color: #1a1a2e; }
+.location { color: #666; font-size: 0.85rem; margin: 0.2rem 0; }
+.price { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; margin: 0.5rem 0; }
+.price span { font-size: 0.8rem; color: #888; }
+
+.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; }
+.btn-view {
+  background: #1a1a2e; color: white;
+  padding: 0.4rem 1rem; border-radius: 6px;
+  text-decoration: none; font-size: 0.85rem;
+}
+.btn-view:hover { background: #16213e; }
+.actions { display: flex; gap: 0.5rem; }
+.btn-edit {
+  color: #1a1a2e; border: 1px solid #1a1a2e;
+  padding: 0.3rem 0.7rem; border-radius: 6px;
+  text-decoration: none; font-size: 0.8rem;
+}
+.btn-delete {
+  background: #e94560; color: white; border: none;
+  padding: 0.3rem 0.7rem; border-radius: 6px;
+  cursor: pointer; font-size: 0.8rem;
+}

@@ -1,0 +1,9 @@
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white; text-align: center; padding: 4rem 2rem;
+}
+.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.1rem; color: #ccc; }
+.page-layout { display: flex; gap: 2rem; padding: 2rem; max-width: 1400px; margin: 0 auto; align-items: flex-start; }
+.listings { flex: 1; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }

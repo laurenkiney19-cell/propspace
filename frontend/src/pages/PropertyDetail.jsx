@@ -1,122 +1,104 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { createProperty } from '../services/propertyService'
-import ImageUploader from '../components/ImageUploader'
-import { useTitle } from '../hooks/useTitle'
+﻿import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { getPropertyById } from '../services/propertyService';
+import { useTitle } from '../hooks/useTitle';
+import './PropertyDetail.css';
 
-export default function CreateProperty() {
-  useTitle('List a Property')
-  const navigate = useNavigate()
-  const [form, setForm] = useState({
-    title: '', description: '', price: '', city: '', country: '', type: '', listingType: ''
-  })
-  const [errors, setErrors] = useState({})
-  const [serverError, setServerError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [imageData, setImageData] = useState({ existingUrls: [], newFiles: [] })
+export default function PropertyDetail() {
+  useTitle('Property Details');
+  const { id } = useParams();
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const handle = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+  useEffect(() => {
+    setLoading(true);
+    setError('');
+    getPropertyById(id)
+      .then((res) => setProperty(res.data.property))
+      .catch(() => setError('Unable to load property details.'))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  const validate = () => {
-    const errs = {}
-    if (!form.title.trim()) errs.title = 'Required.'
-    if (!form.description.trim()) errs.description = 'Required.'
-    if (!form.price || Number(form.price) <= 0) errs.price = 'Enter a valid price.'
-    if (!form.city.trim()) errs.city = 'Required.'
-    if (!form.country.trim()) errs.country = 'Required.'
-    if (!form.type) errs.type = 'Required.'
-    if (!form.listingType) errs.listingType = 'Required.'
-    return errs
+  if (loading) {
+    return (
+      <div className="property-detail-page">
+        <div className="state-box">
+          <div className="spinner" />
+          <p>Loading property...</p>
+        </div>
+      </div>
+    );
   }
 
-  const submit = async (e) => {
-    e.preventDefault()
-    const errs = validate()
-    if (Object.keys(errs).length) { setErrors(errs); return }
-
-    const fd = new FormData()
-    Object.entries(form).forEach(([k, v]) => fd.append(k, v))
-    imageData.newFiles.forEach(file => fd.append('images', file))
-
-    setLoading(true); setServerError('')
-    try {
-      await createProperty(fd)
-      navigate('/dashboard')
-    } catch (err) {
-      setServerError(err.response?.data?.message || 'Failed to create listing.')
-    } finally {
-      setLoading(false)
-    }
+  if (error || !property) {
+    return (
+      <div className="property-detail-page">
+        <div className="state-box error">
+          <p>⚠️ {error || 'Property not found.'}</p>
+          <Link to="/" className="btn-primary">Return Home</Link>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="form-page">
-      <div className="form-card">
-        <h2>List a Property</h2>
-        {serverError && <div className="alert-error">{serverError}</div>}
-        <form onSubmit={submit}>
-          <div className="form-row">
-            <div className="form-group">
-              <label>Title *</label>
-              <input name="title" value={form.title} onChange={handle} placeholder="Spacious 2BR Apartment..." />
-              {errors.title && <span className="field-error">{errors.title}</span>}
+    <div className="property-detail-page">
+      <div className="detail-header">
+        <Link to="/" className="btn-secondary">← Back to listings</Link>
+      </div>
+
+      <div className="detail-card">
+        <div className="detail-images">
+          {property.images?.length > 0 ? (
+            property.images.map((src, index) => (
+              <img key={index} src={src} alt={`${property.title} ${index + 1}`} />
+            ))
+          ) : (
+            <img src="https://placehold.co/800x500?text=No+Image" alt="No image" />
+          )}
+        </div>
+
+        <div className="detail-info">
+          <span className={`badge ${property.listingType === 'sale' ? 'sale' : ''}`}>
+            For {property.listingType === 'rent' ? 'Rent' : 'Sale'}
+          </span>
+          <h1>{property.title}</h1>
+          <p className="detail-location">📍 {property.city}, {property.country}</p>
+          <p className="detail-price">
+            ${Number(property.price).toLocaleString()}
+            {property.listingType === 'rent' && <span> / month</span>}
+          </p>
+          <p className="detail-description">{property.description}</p>
+
+          <div className="detail-meta">
+            <div>
+              <strong>Property Type</strong>
+              <p>{property.type}</p>
             </div>
-            <div className="form-group">
-              <label>Price ($) *</label>
-              <input name="price" type="number" value={form.price} onChange={handle} placeholder="1200" />
-              {errors.price && <span className="field-error">{errors.price}</span>}
-            </div>
-          </div>
-          <div className="form-group">
-            <label>Description *</label>
-            <textarea name="description" rows={4} value={form.description} onChange={handle} placeholder="Describe the property..." />
-            {errors.description && <span className="field-error">{errors.description}</span>}
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label>City *</label>
-              <input name="city" value={form.city} onChange={handle} placeholder="New York" />
-              {errors.city && <span className="field-error">{errors.city}</span>}
-            </div>
-            <div className="form-group">
-              <label>Country *</label>
-              <input name="country" value={form.country} onChange={handle} placeholder="USA" />
-              {errors.country && <span className="field-error">{errors.country}</span>}
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label>Property Type *</label>
-              <select name="type" value={form.type} onChange={handle}>
-                <option value="">Select type</option>
-                <option value="Apartment">Apartment</option>
-                <option value="House">House</option>
-                <option value="Studio">Studio</option>
-              </select>
-              {errors.type && <span className="field-error">{errors.type}</span>}
-            </div>
-            <div className="form-group">
-              <label>Listing Type *</label>
-              <select name="listingType" value={form.listingType} onChange={handle}>
-                <option value="">Select</option>
-                <option value="rent">For Rent</option>
-                <option value="sale">For Sale</option>
-              </select>
-              {errors.listingType && <span className="field-error">{errors.listingType}</span>}
+            <div>
+              <strong>Listed</strong>
+              <p>{new Date(property.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
-          <div className="form-group">
-            <label>Property Images (up to 5)</label>
-            <ImageUploader onChange={setImageData} />
+
+          <div className="owner-card">
+            <h3>Owner</h3>
+            <div className="owner-info">
+              {property.owner?.avatar ? (
+                <img src={property.owner.avatar} alt={property.owner.username} />
+              ) : (
+                <div className="owner-placeholder">{property.owner?.username?.[0]?.toUpperCase() || 'U'}</div>
+              )}
+              <div>
+                <p className="owner-name">{property.owner?.fullName || property.owner?.username}</p>
+                <p className="owner-email">{property.owner?.email}</p>
+                {property.owner?.phone && <p className="owner-phone">{property.owner.phone}</p>}
+              </div>
+            </div>
           </div>
-          <div className="form-actions">
-            <Link to="/dashboard" className="btn-cancel">Cancel</Link>
-            <button type="submit" className="btn-primary" disabled={loading}>
-              {loading ? 'Publishing...' : 'Publish Listing'}
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-  )
+  );
 }

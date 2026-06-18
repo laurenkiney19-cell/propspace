@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import Navbar from './components/Navbar'
@@ -15,9 +16,17 @@ function PrivateRoute({ children }) {
   return isLoggedIn ? children : <Navigate to="/login" replace />
 }
 
+PrivateRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 function GuestRoute({ children }) {
   const { isLoggedIn } = useAuth()
   return isLoggedIn ? <Navigate to="/" replace /> : children
+}
+
+GuestRoute.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 function AppRoutes() {

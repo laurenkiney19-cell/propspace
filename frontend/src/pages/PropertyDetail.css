@@ -1,22 +1,16 @@
-.detail-page { padding: 2rem; max-width: 1100px; margin: 0 auto; }
-.back-link { color: #e94560; text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
-.detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.main-image { width: 100%; border-radius: 12px; object-fit: cover; max-height: 400px; }
-.thumbnail-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-.thumbnail { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
-.no-image { background: #f5f5f5; border-radius: 12px; height: 300px; display: flex; align-items: center; justify-content: center; color: #999; }
-.info-panel { display: flex; flex-direction: column; gap: 1rem; }
-.badges { display: flex; gap: 0.5rem; }
-.badge-type { background: #f0f0f0; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
-.badge-listing { background: #16213e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
-.badge-listing.sale { background: #e94560; }
-.info-panel h1 { font-size: 1.8rem; color: #1a1a2e; margin: 0; }
-.location { color: #666; }
-.price { font-size: 2rem; font-weight: 700; color: #e94560; }
-.price span { font-size: 1rem; color: #888; }
-.description, .owner-card { background: white; padding: 1.2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.description h3, .owner-card h3 { color: #1a1a2e; margin-bottom: 0.5rem; }
-.description p { color: #555; line-height: 1.7; }
-.owner { display: flex; align-items: center; gap: 1rem; margin-top: 0.8rem; }
-.avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
-@media (max-width: 768px) { .detail-layout { grid-template-columns: 1fr; } }
+﻿.property-detail-page { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+.detail-header { margin-bottom: 1rem; }
+.detail-card { display: grid; gap: 1.5rem; grid-template-columns: 1.5fr 1fr; }
+.detail-images img { width: 100%; object-fit: cover; border-radius: 12px; margin-bottom: 0.75rem; }
+.detail-images img:last-child { margin-bottom: 0; }
+.detail-info { padding: 1.5rem; background: #fff; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.05); }
+.badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.35rem 0.75rem; border-radius: 999px; background: #10b981; color: #fff; margin-bottom: 1rem; }
+.badge.sale { background: #ef4444; }
+.detail-location, .detail-price { margin: 0.5rem 0; }
+.detail-description { line-height: 1.75; margin: 1rem 0; }
+.detail-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.owner-card { margin-top: 2rem; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 12px; }
+.owner-info { display: flex; gap: 1rem; align-items: center; }
+.owner-info img, .owner-placeholder { width: 64px; height: 64px; border-radius: 999px; background: #f3f4f6; object-fit: cover; display: grid; place-items: center; font-weight: 700; }
+.owner-name { margin: 0; font-weight: 700; }
+.owner-email, .owner-phone { margin: 0.25rem 0 0; color: #4b5563; }

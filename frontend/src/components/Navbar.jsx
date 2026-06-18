@@ -13,7 +13,12 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="brand">🏠 PropSpace</Link>
+      <Link to="/" className="brand">
+        <svg className="brand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M3 10.5L12 3l9 7.5V21H14V14H10v7H3V10.5Z" fill="currentColor" />
+        </svg>
+        PropSpace
+      </Link>
       <div className="nav-links">
         <Link to="/">Browse</Link>
         {isLoggedIn ? (

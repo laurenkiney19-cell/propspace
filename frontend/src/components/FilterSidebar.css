@@ -1,43 +1,85 @@
-.card {
+.sidebar {
   background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 16px;
+  padding: 1.6rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  width: 260px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 80px;
 }
-.card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
 
-.card-image { position: relative; height: 200px; }
-.card-image img { width: 100%; height: 100%; object-fit: cover; }
-.badge {
-  position: absolute; top: 12px; left: 12px;
-  background: #16213e; color: white;
-  padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;
+.sidebar h3 {
+  color: #1a1a2e;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #f0f2f7;
 }
-.badge.sale { background: #e94560; }
 
-.card-body { padding: 1rem; }
-.type-tag { font-size: 0.75rem; color: #e94560; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-.card-body h3 { margin: 0.3rem 0; font-size: 1rem; color: #1a1a2e; }
-.location { color: #666; font-size: 0.85rem; margin: 0.2rem 0; }
-.price { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; margin: 0.5rem 0; }
-.price span { font-size: 0.8rem; color: #888; }
+.filter-group {
+  margin-bottom: 1.1rem;
+}
 
-.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; }
-.btn-view {
-  background: #1a1a2e; color: white;
-  padding: 0.4rem 1rem; border-radius: 6px;
-  text-decoration: none; font-size: 0.85rem;
+.filter-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
 }
-.btn-view:hover { background: #16213e; }
-.actions { display: flex; gap: 0.5rem; }
-.btn-edit {
-  color: #1a1a2e; border: 1px solid #1a1a2e;
-  padding: 0.3rem 0.7rem; border-radius: 6px;
-  text-decoration: none; font-size: 0.8rem;
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 0.55rem 0.8rem;
+  border: 1.5px solid #e0e4ef;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #1a1a2e;
+  background: #fafbff;
+  transition: border-color 0.2s;
 }
-.btn-delete {
-  background: #e94560; color: white; border: none;
-  padding: 0.3rem 0.7rem; border-radius: 6px;
-  cursor: pointer; font-size: 0.8rem;
+
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none;
+  border-color: #e94560;
+  background: white;
 }
+
+.btn-apply {
+  width: 100%;
+  padding: 0.65rem;
+  background: linear-gradient(135deg, #e94560, #c73652);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: inherit;
+  margin-bottom: 0.5rem;
+  transition: opacity 0.2s;
+}
+.btn-apply:hover { opacity: 0.9; }
+
+.btn-clear {
+  width: 100%;
+  padding: 0.6rem;
+  background: #f0f2f7;
+  color: #666;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn-clear:hover { background: #e4e7f0; }

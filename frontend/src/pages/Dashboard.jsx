@@ -41,10 +41,14 @@ export default function Dashboard() {
       </div>
 
       {loading && <div className="state-box"><div className="spinner" /><p>Loading your listings...</p></div>}
-      {!loading && error && <div className="state-box error"><p>⚠️ {error}</p></div>}
+      {!loading && error && <div className="state-box error"><p><span className="inline-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 21h22L12 2 1 21Zm12-3h-2v-2h2v2Zm0-4h-2v-4h2v4Z" fill="currentColor"/></svg>
+          </span>{error}</p></div>}
       {!loading && !error && properties.length === 0 && (
         <div className="state-box empty">
-          <p>📋 You haven't listed any properties yet.</p>
+          <p><span className="inline-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5h14v14H5V5Zm2 2v10h10V7H7Zm2 2h6v2H9V9Zm0 4h6v2H9v-2Z" fill="currentColor"/></svg>
+          </span>You haven't listed any properties yet.</p>
           <Link to="/create-property" className="btn-create" style={{display:'inline-block',marginTop:'1rem'}}>Create your first listing</Link>
         </div>
       )}

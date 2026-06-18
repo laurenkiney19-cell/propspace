@@ -35,7 +35,9 @@ export default function PropertyDetail() {
     return (
       <div className="property-detail-page">
         <div className="state-box error">
-          <p>⚠️ {error || 'Property not found.'}</p>
+          <p><span className="inline-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 21h22L12 2 1 21Zm12-3h-2v-2h2v2Zm0-4h-2v-4h2v4Z" fill="currentColor"/></svg>
+          </span>{error || 'Property not found.'}</p>
           <Link to="/" className="btn-primary">Return Home</Link>
         </div>
       </div>
@@ -45,7 +47,7 @@ export default function PropertyDetail() {
   return (
     <div className="property-detail-page">
       <div className="detail-header">
-        <Link to="/" className="btn-secondary">← Back to listings</Link>
+        <Link to="/" className="btn-secondary"><svg className="inline-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>Back to listings</Link>
       </div>
 
       <div className="detail-card">
@@ -64,7 +66,9 @@ export default function PropertyDetail() {
             For {property.listingType === 'rent' ? 'Rent' : 'Sale'}
           </span>
           <h1>{property.title}</h1>
-          <p className="detail-location">📍 {property.city}, {property.country}</p>
+          <p className="detail-location"><span className="inline-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></svg>
+            </span>{property.city}, {property.country}</p>
           <p className="detail-price">
             ${Number(property.price).toLocaleString()}
             {property.listingType === 'rent' && <span> / month</span>}

@@ -1,0 +1,6 @@
+.profile-page { padding: 2rem; max-width: 900px; margin: 0 auto; }
+.profile-page h2 { color: #1a1a2e; margin-bottom: 1.5rem; }
+.sections { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h3 { color: #1a1a2e; margin-bottom: 1rem; }
+@media (max-width: 700px) { .sections { grid-template-columns: 1fr; } }

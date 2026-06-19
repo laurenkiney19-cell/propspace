@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import './FilterSidebar.css'
 
@@ -44,4 +45,8 @@ export default function FilterSidebar({ onFilter }) {
       <button className="btn-clear" onClick={clear}>Clear</button>
     </aside>
   )
+}
+
+FilterSidebar.propTypes = {
+  onFilter: PropTypes.func.isRequired,
 }

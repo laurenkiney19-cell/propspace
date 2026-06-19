@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import './PropertyCard.css'
 
@@ -34,4 +35,24 @@ export default function PropertyCard({ property, showActions, onDelete }) {
       </div>
     </div>
   )
+}
+
+PropertyCard.propTypes = {
+  property: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    city: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    listingType: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  showActions: PropTypes.bool,
+  onDelete: PropTypes.func,
+}
+
+PropertyCard.defaultProps = {
+  showActions: false,
+  onDelete: null,
 }

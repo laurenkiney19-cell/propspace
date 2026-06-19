@@ -12,12 +12,17 @@ export default function PropertyDetail() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    const controller = new AbortController();
     setLoading(true);
     setError('');
-    getPropertyById(id)
+    getPropertyById(id, controller.signal)
       .then((res) => setProperty(res.data.property))
-      .catch(() => setError('Unable to load property details.'))
+      .catch((err) => {
+        if (err.name === 'CanceledError') return;
+        setError('Unable to load property details.');
+      })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, [id]);
 
   if (loading) {

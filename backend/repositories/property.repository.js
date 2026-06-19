@@ -10,7 +10,7 @@ const PropertyRepo = {
     if (filters.listingType) query.listingType = filters.listingType;
     return Property.find(query).populate("owner", "username fullName avatar").sort({ createdAt: -1 });
   },
-  findById: (id) => Property.findById(id).populate("owner", "username fullName avatar phone"),
+  findById: (id) => Property.findById(id).populate("owner", "username fullName email avatar phone"),
   findByOwner: (ownerId) => Property.find({ owner: ownerId }).sort({ createdAt: -1 }),
   create: (data) => Property.create(data),
   update: (id, data) => Property.findByIdAndUpdate(id, data, { new: true }),

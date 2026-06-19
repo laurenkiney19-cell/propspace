@@ -19,7 +19,8 @@ export default function EditProperty() {
   const [fetchLoading, setFetchLoading] = useState(true)
 
   useEffect(() => {
-    getPropertyById(id)
+    const controller = new AbortController()
+    getPropertyById(id, controller.signal)
       .then(res => {
         const p = res.data.property
         setForm({
@@ -29,8 +30,12 @@ export default function EditProperty() {
         setExistingImages(p.images || [])
         setImageData({ existingUrls: p.images || [], newFiles: [] })
       })
-      .catch(() => setServerError('Could not load property.'))
+      .catch(err => {
+        if (err.name === 'CanceledError') return
+        setServerError('Could not load property.')
+      })
       .finally(() => setFetchLoading(false))
+    return () => controller.abort()
   }, [id])
 
   const handle = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }))

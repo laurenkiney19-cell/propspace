@@ -14,13 +14,14 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  const fetchProperties = async (filters = {}) => {
+  const fetchProperties = async (filters = {}, signal) => {
     setLoading(true)
     setError('')
     try {
-      const res = await getProperties(filters)
+      const res = await getProperties(filters, signal)
       setProperties(res.data.properties)
-    } catch {
+    } catch (err) {
+      if (err.name === 'CanceledError') return
       setError('Failed to load properties. Please try again.')
     } finally {
       setLoading(false)
@@ -28,7 +29,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    fetchProperties()
+    const controller = new AbortController()
+    fetchProperties({}, controller.signal)
+    return () => controller.abort()
   }, [])
 
   const featuredProperties = [

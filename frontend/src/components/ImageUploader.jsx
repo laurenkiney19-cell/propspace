@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 
 export default function ImageUploader({ existingImages = [], onChange }) {
@@ -80,4 +81,13 @@ export default function ImageUploader({ existingImages = [], onChange }) {
       )}
     </div>
   )
+}
+
+ImageUploader.propTypes = {
+  existingImages: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func.isRequired,
+}
+
+ImageUploader.defaultProps = {
+  existingImages: [],
 }

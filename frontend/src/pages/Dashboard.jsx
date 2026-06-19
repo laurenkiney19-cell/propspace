@@ -14,10 +14,15 @@ export default function Dashboard() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    getMyListings()
+    const controller = new AbortController()
+    getMyListings(controller.signal)
       .then(res => setProperties(res.data.properties))
-      .catch(() => setError('Failed to load your listings.'))
+      .catch(err => {
+        if (err.name === 'CanceledError') return
+        setError('Failed to load your listings.')
+      })
       .finally(() => setLoading(false))
+    return () => controller.abort()
   }, [])
 
   const handleDelete = async (id) => {
